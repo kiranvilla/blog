@@ -2,9 +2,14 @@
   <div class="app-listing">
     <div v-for="(item, index) in blogs" :key="index" class="blog">
       <span class="delete-blog" @click="deleteBlog(index)">Delete</span>
-      <h2>{{ item.name }}</h2>
-      <p>{{ item.description }}</p>
+      <h2>{{ item.title }}</h2>
+      <p>{{ item.body }}</p>
     </div>
+
+    <div class="add-blog">
+      <button @click="handleOpenFormModal">Add Blog</button>
+    </div>
+
     <AppModal
       header="Warning!"
       subTitle="Are you sure?"
@@ -14,6 +19,18 @@
         <span @click="cancelDelete">Cancel</span>
         <button @click="confirmDelete">Delete</button>
       </div>
+    </AppModal>
+
+    <AppModal
+      header="Add blog"
+      v-if="showBlogModal"
+      @closeModal="closeModal"
+    >
+      <form ref="formRef" class="form-container" @submit.prevent="submitForm">
+        <input type="text" placeholder="Name" v-model="title" required>
+        <input type="text" placeholder="Description" v-model="body" required>
+        <input type="submit" value="Add blog">
+      </form>
     </AppModal>
   </div>
 </template>
@@ -26,28 +43,40 @@ export default {
     AppModal
   },
 
+  mounted() {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(response => response.json())
+      .then(json => {
+        this.blogs = json
+      })
+  },
+
   data() {
     return {
+      title: 'kiran',
+      body: '',
+      showBlogModal: false,
       showWarningModal: false,
       blogIndex: null,
-      blogs: [
-        {
-          name: 'Max',
-          description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
-        },
-        {
-          name: 'William',
-          description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
-        },
-        {
-          name: 'Robert',
-          description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
-        },
-        {
-          name: 'Sam',
-          description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
-        },
-      ]
+      blogs: []
+      // blogs: [
+      //   {
+      //     name: 'Max',
+      //     description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
+      //   },
+      //   {
+      //     name: 'William',
+      //     description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
+      //   },
+      //   {
+      //     name: 'Robert',
+      //     description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
+      //   },
+      //   {
+      //     name: 'Sam',
+      //     description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
+      //   },
+      // ]
     }
   },
 
@@ -64,6 +93,21 @@ export default {
     cancelDelete() {
       this.blogIndex = null
       this.showWarningModal = false
+    },
+    handleOpenFormModal() {
+      this.showBlogModal = true
+    },
+    submitForm() {
+      this.blogs.push({
+        title: this.title,
+        body: this.body
+      })
+      this.showBlogModal = false
+      this.title = ''
+      this.body = ''
+    },
+    closeModal() {
+      this.showBlogModal = false
     }
   }
 }
@@ -96,6 +140,34 @@ export default {
   color: #fff;
   background: red;
   border: 1px solid red;
+  font-size: 18px;
+}
+.form-container {
+  width: 100%;
+}
+.form-container input {
+  width: 100%;
+  margin-top: 10px;
+  height: 40px;
+  box-sizing: border-box;
+  border: 2px solid black;
+  padding: 10px;
+}
+.form-container input[type='submit'] {
+  background: black;
+  color: #fff;
+}
+.add-blog {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+}
+.add-blog button {
+  height: 50px;
+  padding: 5px;
+  box-sizing: border-box;
+  background: black;
+  color: #fff;
   font-size: 18px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-container">
+  <div class="modal-container" @click.self="closeModal">
     <div class="inner-container">
       <h2>{{ header }}</h2>
       <p v-if="subTitle">{{ subTitle }}</p>
@@ -21,12 +21,23 @@ export default {
     }
   },
 
+  mounted() {
+    document.body.classList.add('app-overflow')
+  },
+
+  destroyed() {
+    document.body.classList.remove('app-overflow')
+  },
+
   methods: {
     confirmDelete() {
       this.$emit('confirmDelete')
     },
     cancelDelete() {
       this.$emit('cancelDelete')
+    },
+    closeModal() {
+      this.$emit('closeModal')
     }
   }
 }
