@@ -1,21 +1,15 @@
 <template>
   <div>
-    <NavHeader :header="header" @changeHeader="handleChangeHeader" />
-    <AppContent />
-    <NavFooter />
+    <DefaultLayout />
   </div>
 </template>
 
 <script>
-import NavHeader from './components/NavHeader.vue'
-import NavFooter from './components/NavFooter.vue'
-import AppContent from './components/content/AppContent.vue'
+import DefaultLayout from './Layouts/DefaultLayout.vue'
 
 export default {
   components: {
-    NavHeader,
-    NavFooter,
-    AppContent
+    DefaultLayout
   },
 
   data() {

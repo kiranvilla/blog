@@ -1,6 +1,14 @@
 <template>
   <div class="side-bar">
-    <h3>Side bar</h3>
+    <router-link to="/">
+      <h2>Home</h2>
+    </router-link>
+    <router-link to="/my-blogs">
+      <h2>My Blogs</h2>
+    </router-link>
+    <router-link to="/all-blogs">
+      <h2>All Blogs</h2>
+    </router-link>
   </div>
 </template>
 
