@@ -1,12 +1,12 @@
 <template>
   <div class="side-bar">
-    <router-link to="/">
+    <router-link :to="{ name: 'home' }">
       <h2>Home</h2>
     </router-link>
-    <router-link to="/my-blogs">
+    <router-link :to="{ name: 'my-blogs' }">
       <h2>My Blogs</h2>
     </router-link>
-    <router-link to="/all-blogs">
+    <router-link :to="{ name: 'all-blogs' }">
       <h2>All Blogs</h2>
     </router-link>
   </div>

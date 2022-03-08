@@ -1,21 +1,16 @@
 <template>
   <div class="header">
-    <h2 @click="handleChangeHeader">{{ header }}</h2>
+    <h2 @click="handleChangeHeader">{{ $store.state.header }}</h2>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    header: {
-      type: String,
-      default: 'Nav header two'
-    }
-  }, // Array or Object
-
   methods: {
     handleChangeHeader() {
-      this.$emit('changeHeader', 'Header changed')
+      this.$store.commit('changeHeader', { title: 'header changed' })
+      // this.$store.state.header = 'header changed'
+      // this.$emit('changeHeader', 'Header changed')
     }
   }
 }

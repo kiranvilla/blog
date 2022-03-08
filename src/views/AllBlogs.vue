@@ -2,7 +2,9 @@
   <div class="app-listing">
     <div v-for="(item, index) in blogs" :key="index" class="blog">
       <span class="delete-blog" @click="deleteBlog(index)">Delete</span>
-      <h2>{{ item.title }}</h2>
+      <!-- <router-link :to="{ name: 'single-blog', params: { id: item.id } }"> -->
+      <h2 @click="goToSingleBlogPage(item)">{{ item.title }}</h2>
+      <!-- </router-link> -->
       <p>{{ item.body }}</p>
     </div>
 
@@ -99,6 +101,9 @@ export default {
     },
     closeModal() {
       this.showBlogModal = false
+    },
+    goToSingleBlogPage(item) {
+      this.$router.push({ name: 'single-blog', params: { id: item.id }, query: { details: item } })
     }
   }
 }

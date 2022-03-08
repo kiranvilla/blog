@@ -1,12 +1,16 @@
 <template>
   <div class="footer">
-    <h2>Nav Footer</h2>
+    <h2>Nav Footer, {{ header }}</h2>
   </div>
 </template>
 
 <script>
 export default {
-  
+  props: {
+    header: {
+      type: String
+    }
+  }
 }
 </script>
 

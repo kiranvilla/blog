@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavHeader :header="header" @changeHeader="handleChangeHeader" />
+    <NavHeader @changeHeader="handleChangeHeader" />
     <div class="main-container">
       <NavSideBar />
       <router-view></router-view>
@@ -19,12 +19,6 @@ export default {
     NavHeader,
     NavFooter,
     NavSideBar,
-  },
-
-  data() {
-    return {
-      header: 'Nav Header One'
-    }
   },
 
   methods: {
