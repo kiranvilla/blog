@@ -40,7 +40,7 @@
 <script>
 import AppModal from '../components/AppModal.vue'
 
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   components: {
@@ -48,13 +48,7 @@ export default {
   },
 
   mounted() {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then(response => {
-        this.blogs = response.data
-      })
-      .catch(error => {
-        console.log('error', error.response)
-      })
+    this.$store.dispatch('allBlogsModule/getBlogs')
     // fetch('https://jsonplaceholder.typicode.com/posts')
     //   .then(response => response.json())
     //   .then(json => {
@@ -69,7 +63,12 @@ export default {
       showBlogModal: false,
       showWarningModal: false,
       blogIndex: null,
-      blogs: []
+    }
+  },
+
+  computed: {
+    blogs() {
+      return this.$store.state.allBlogsModule.blogs
     }
   },
 
@@ -79,7 +78,8 @@ export default {
       this.blogIndex = index
     },
     confirmDelete() {
-      this.blogs.splice(this.blogIndex, 1)
+      this.$store.commit('allBlogsModule/deleteBlog', this.blogIndex)
+      // this.blogs.splice(this.blogIndex, 1)
       this.blogIndex = null
       this.showWarningModal = false
     },
@@ -91,10 +91,14 @@ export default {
       this.showBlogModal = true
     },
     submitForm() {
-      this.blogs.push({
+      this.$store.commit('allBlogsModule/addBlog', {
         title: this.title,
         body: this.body
       })
+      // this.blogs.push({
+      //   title: this.title,
+      //   body: this.body
+      // })
       this.showBlogModal = false
       this.title = ''
       this.body = ''

@@ -1,5 +1,6 @@
 <template>
   <div class="app-listing">
+    <h2>My total blogs: {{ myTotalBlogs }}</h2>
     <div v-for="(item, index) in blogs" :key="index" class="blog">
       <span class="delete-blog" @click="deleteBlog(index)">Delete</span>
       <h2>{{ item.title }}</h2>
@@ -58,25 +59,15 @@ export default {
       showBlogModal: false,
       showWarningModal: false,
       blogIndex: null,
-      // blogs: []
-      blogs: [
-        {
-          title: 'Max',
-          body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
-        },
-        {
-          title: 'William',
-          body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
-        },
-        {
-          title: 'Robert',
-          body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
-        },
-        {
-          title: 'Sam',
-          body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
-        },
-      ]
+    }
+  },
+
+  computed: {
+    blogs() {
+      return this.$store.state.myBlogsModule.blogs
+    },
+    myTotalBlogs() {
+      return this.$store.getters['myBlogsModule/myTotalBlogs']
     }
   },
 
@@ -86,7 +77,8 @@ export default {
       this.blogIndex = index
     },
     confirmDelete() {
-      this.blogs.splice(this.blogIndex, 1)
+      this.$store.commit('myBlogsModule/deleteBlog', this.blogIndex)
+      // this.blogs.splice(this.blogIndex, 1)
       this.blogIndex = null
       this.showWarningModal = false
     },
@@ -98,10 +90,14 @@ export default {
       this.showBlogModal = true
     },
     submitForm() {
-      this.blogs.push({
+      this.$store.commit('myBlogsModule/addBlog', {
         title: this.title,
         body: this.body
       })
+      // this.blogs.push({
+      //   title: this.title,
+      //   body: this.body
+      // })
       this.showBlogModal = false
       this.title = ''
       this.body = ''
