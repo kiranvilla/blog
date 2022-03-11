@@ -40,6 +40,7 @@
 <script>
 import AppModal from '../components/AppModal.vue'
 
+import { mapActions } from 'vuex'
 // import axios from 'axios'
 
 export default {
@@ -48,12 +49,8 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch('allBlogsModule/getBlogs')
-    // fetch('https://jsonplaceholder.typicode.com/posts')
-    //   .then(response => response.json())
-    //   .then(json => {
-    //     this.blogs = json
-    //   })
+    this.getBlogsFromServer()
+    // this.$store.dispatch('allBlogsModule/getBlogs')
   },
 
   data() {
@@ -73,12 +70,17 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      getBlogsFromServer: 'allBlogsModule/getBlogs',
+      deleteBlogFromServer: 'allBlogsModule/deleteBlogFromServer'
+    }),
     deleteBlog(index) {
       this.showWarningModal = true
       this.blogIndex = index
     },
     confirmDelete() {
-      this.$store.commit('allBlogsModule/deleteBlog', this.blogIndex)
+      this.deleteBlogFromServer(this.blogIndex)
+      // this.$store.commit('allBlogsModule/deleteBlog', this.blogIndex)
       // this.blogs.splice(this.blogIndex, 1)
       this.blogIndex = null
       this.showWarningModal = false

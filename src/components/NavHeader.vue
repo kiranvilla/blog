@@ -6,14 +6,16 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 export default {
   computed: {
-    header() {
-      return this.$store.state.myBlogsModule.header
-    },
-    myTotalBlogs() {
-      return this.$store.getters['myBlogsModule/myTotalBlogs']
-    }
+    ...mapState({
+      header: (state) => state.myBlogsModule.header,
+    }),
+    ...mapGetters({
+      myTotalBlogs: 'myBlogsModule/myTotalBlogs'
+    })
   },
   methods: {
     handleChangeHeader() {

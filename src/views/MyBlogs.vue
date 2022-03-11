@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations } from 'vuex'
+
 import AppModal from '../components/AppModal.vue'
 
 export default {
@@ -63,22 +65,31 @@ export default {
   },
 
   computed: {
-    blogs() {
-      return this.$store.state.myBlogsModule.blogs
-    },
-    myTotalBlogs() {
-      return this.$store.getters['myBlogsModule/myTotalBlogs']
-    }
+    ...mapState({
+      blogs: state => state.myBlogsModule.blogs
+    }),
+    ...mapGetters({
+      myTotalBlogs: 'myBlogsModule/myTotalBlogs'
+    }),
+    // blogs() {
+    //   return this.$store.state.myBlogsModule.blogs
+    // },
+    // myTotalBlogs() {
+    //   return this.$store.getters['myBlogsModule/myTotalBlogs']
+    // }
   },
 
   methods: {
+    ...mapMutations({
+      deleteBlogFromState: 'myBlogsModule/deleteBlog',
+      addBlogToTheState: 'myBlogsModule/addBlog'
+    }),
     deleteBlog(index) {
       this.showWarningModal = true
       this.blogIndex = index
     },
     confirmDelete() {
-      this.$store.commit('myBlogsModule/deleteBlog', this.blogIndex)
-      // this.blogs.splice(this.blogIndex, 1)
+      this.deleteBlogFromState(this.blogIndex)
       this.blogIndex = null
       this.showWarningModal = false
     },
@@ -90,10 +101,14 @@ export default {
       this.showBlogModal = true
     },
     submitForm() {
-      this.$store.commit('myBlogsModule/addBlog', {
+      this.addBlogToTheState({
         title: this.title,
         body: this.body
       })
+      // this.$store.commit('myBlogsModule/addBlog', {
+      //   title: this.title,
+      //   body: this.body
+      // })
       // this.blogs.push({
       //   title: this.title,
       //   body: this.body

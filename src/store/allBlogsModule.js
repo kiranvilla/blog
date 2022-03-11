@@ -29,6 +29,15 @@ const allBlogsModule = {
         .catch(error => {
           console.log('error', error.response)
         })
+    },
+    deleteBlogFromServer({ commit }, id) {
+      axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+        .then(response => {
+          if (response.status === 200) commit('deleteBlog', id)
+        })
+        .catch(error => {
+          console.log('error', error.response)
+        })
     }
   }
 }
