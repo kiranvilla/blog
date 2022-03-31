@@ -1,29 +1,23 @@
 <template>
   <div class="header">
-    <h2 @click="handleChangeHeader">{{ header }}</h2>
-    <h3>My total blogs: {{ myTotalBlogs }}</h3>
+    <h2>{{ $t('message.allBlogs') }}</h2>
+    <div class="lang">
+      <span @click="$i18n.locale = 'en'" :style="{color: $i18n.locale==='en' ? 'cyan' : 'yellow'}">EN</span> |
+      <span @click="$i18n.locale = 'ru'" :style="{color: $i18n.locale==='ru' ? 'cyan' : 'yellow'}">RU</span> |
+      <span @click="$i18n.locale = 'fr'" :style="{color: $i18n.locale==='fr' ? 'cyan' : 'yellow'}">FR</span>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapState({
-      header: (state) => state.myBlogsModule.header,
-    }),
     ...mapGetters({
       myTotalBlogs: 'myBlogsModule/myTotalBlogs'
     })
   },
-  methods: {
-    handleChangeHeader() {
-      this.$store.commit('myBlogsModule/changeHeader', 'Header changed')
-      // this.$store.state.header = 'header changed'
-      // this.$emit('changeHeader', 'Header changed')
-    }
-  }
 }
 </script>
 
@@ -32,8 +26,18 @@ export default {
   background: black;
   text-align: center;
   padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 h2, h3 {
   color: #fff;
+}
+.lang {
+  color: #fff;
+}
+.lang span {
+  color: yellow;
+  cursor: pointer;
 }
 </style>

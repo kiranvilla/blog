@@ -1,7 +1,9 @@
+import i18n from "../plugins/vue-i18n";
+
 const myBlogsModule = {
   namespaced: true,
   state: {
-    header: 'Blogs App',
+    header: i18n.t('message.blogsApp'),
     blogs: [
       {
         title: 'Max',
@@ -27,9 +29,6 @@ const myBlogsModule = {
   },
 
   mutations: {
-    changeHeader(state, payload) {
-      state.header = payload
-    },
     addBlog(state, payload) {
       state.blogs.push(payload)
     },

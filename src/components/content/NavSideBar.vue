@@ -1,13 +1,13 @@
 <template>
   <div class="side-bar">
     <router-link :to="{ name: 'home' }">
-      <h2>Home</h2>
+      <h2>{{ $t('message.home') }}</h2>
     </router-link>
     <router-link :to="{ name: 'my-blogs' }">
-      <h2>My Blogs</h2>
+      <h2>{{ $t('message.myBlogs') }}</h2>
     </router-link>
     <router-link :to="{ name: 'all-blogs' }">
-      <h2>All Blogs</h2>
+      <h2>{{ $t('message.allBlogs') }}</h2>
     </router-link>
   </div>
 </template>

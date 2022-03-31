@@ -1,18 +1,8 @@
 <template>
   <div class="footer">
-    <h2>Nav Footer, {{ header }}</h2>
+    <h2>{{ $t('message.navFooter') }}</h2>
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    header: {
-      type: String
-    }
-  }
-}
-</script>
 
 <style scoped>
 .footer {
