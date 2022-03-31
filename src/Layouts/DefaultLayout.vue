@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :dir="appDir">
     <NavHeader @changeHeader="handleChangeHeader" />
     <div class="main-container">
       <NavSideBar />
@@ -19,6 +19,12 @@ export default {
     NavHeader,
     NavFooter,
     NavSideBar,
+  },
+
+  computed: {
+    appDir() {
+      return this.$i18n.locale === 'ar' ? 'rtl' : 'ltr'
+    }
   },
 
   methods: {

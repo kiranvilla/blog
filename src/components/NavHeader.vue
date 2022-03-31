@@ -4,7 +4,8 @@
     <div class="lang">
       <span @click="$i18n.locale = 'en'" :style="{color: $i18n.locale==='en' ? 'cyan' : 'yellow'}">EN</span> |
       <span @click="$i18n.locale = 'ru'" :style="{color: $i18n.locale==='ru' ? 'cyan' : 'yellow'}">RU</span> |
-      <span @click="$i18n.locale = 'fr'" :style="{color: $i18n.locale==='fr' ? 'cyan' : 'yellow'}">FR</span>
+      <span @click="$i18n.locale = 'fr'" :style="{color: $i18n.locale==='fr' ? 'cyan' : 'yellow'}">FR</span> |
+      <span @click="$i18n.locale = 'ar'" :style="{color: $i18n.locale==='ar' ? 'cyan' : 'yellow'}">AR</span>
     </div>
   </div>
 </template>
@@ -37,7 +38,6 @@ h2, h3 {
   color: #fff;
 }
 .lang span {
-  color: yellow;
   cursor: pointer;
 }
 </style>

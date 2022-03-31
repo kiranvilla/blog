@@ -5,6 +5,7 @@ import VueI18n from "vue-i18n";
 import { enLocales } from '../locales/en'
 import { ruLocales } from '../locales/ru'
 import { frLocales } from '../locales/fr'
+import { arLocales } from '../locales/ar'
 
 
 Vue.use(VueI18n);
@@ -18,6 +19,9 @@ const messages = {
   },
   fr: {
     message: frLocales
+  },
+  ar: {
+    message: arLocales
   }
 }
 
