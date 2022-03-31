@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <h2>{{ $t('message.navFooter') }}</h2>
+    <h2>{{ $t('message.navFooter') }} © {{ new Date().getFullYear() }}</h2>
   </div>
 </template>
 

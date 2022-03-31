@@ -1,36 +1,35 @@
 <template>
   <div class="app-listing">
-    <h2>My total blogs: {{ myTotalBlogs }}</h2>
     <div v-for="(item, index) in blogs" :key="index" class="blog">
-      <span class="delete-blog" @click="deleteBlog(index)">Delete</span>
+      <span class="delete-blog" :class="{'ar-layout': $i18n.locale === 'ar'}" @click="deleteBlog(index)">{{ $t('message.delete') }}</span>
       <h2>{{ item.title }}</h2>
       <p>{{ item.body }}</p>
     </div>
 
-    <div class="add-blog">
-      <button @click="handleOpenFormModal">Add Blog</button>
+    <div class="add-blog" :class="{'ar-btn': $i18n.locale === 'ar'}">
+      <button @click="handleOpenFormModal">{{ $t('message.addBlog') }}</button>
     </div>
 
     <AppModal
-      header="Warning!"
-      subTitle="Are you sure?"
+      :header="$t('message.warning')"
+      :subTitle="$t('message.areYouSure')"
       v-if="showWarningModal"
     >
       <div class="action-container">
-        <span @click="cancelDelete">Cancel</span>
-        <button @click="confirmDelete">Delete</button>
+        <span @click="cancelDelete">{{ $t('message.cancel') }}</span>
+        <button @click="confirmDelete">{{ $t('message.delete') }}</button>
       </div>
     </AppModal>
 
     <AppModal
-      header="Add blog"
+      :header="$t('message.addBlog')"
       v-if="showBlogModal"
       @closeModal="closeModal"
     >
       <form ref="formRef" class="form-container" @submit.prevent="submitForm">
-        <input type="text" placeholder="Name" v-model="title" required>
-        <input type="text" placeholder="Description" v-model="body" required>
-        <input type="submit" value="Add blog">
+        <input type="text" :placeholder="$t('message.name')" v-model="title" required>
+        <input type="text" :placeholder="$t('message.description')" v-model="body" required>
+        <input type="submit" :value="$t('message.addBlog')">
       </form>
     </AppModal>
   </div>
@@ -141,10 +140,17 @@ export default {
   cursor: pointer;
   color: red;
 }
+.ar-layout {
+  right: unset;
+  left: 5px;
+}
 .action-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.action-container span {
+  cursor: pointer;
 }
 .action-container button {
   height: 40px;
@@ -152,6 +158,7 @@ export default {
   background: red;
   border: 1px solid red;
   font-size: 18px;
+  cursor: pointer;
 }
 .form-container {
   width: 100%;
@@ -167,13 +174,19 @@ export default {
 .form-container input[type='submit'] {
   background: black;
   color: #fff;
+  cursor: pointer;
 }
 .add-blog {
   position: fixed;
   bottom: 50px;
   right: 50px;
 }
+.ar-btn {
+  right: unset;
+  left: 50px;
+}
 .add-blog button {
+  cursor: pointer;
   height: 50px;
   padding: 5px;
   box-sizing: border-box;

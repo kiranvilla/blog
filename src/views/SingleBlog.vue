@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="single-blog">
     <div v-if="singleBlog">
       <div>
         <h2>user id: {{ singleBlog.userId }}</h2>
-        <h2>id: {{ singleBlog.id }}</h2>
-        <h2>title: {{ singleBlog.title }}</h2>
-        <h2>body: {{ singleBlog.body }}</h2>
+        <p>id: {{ singleBlog.id }}</p>
+        <p>title: {{ singleBlog.title }}</p>
+        <p>body: {{ singleBlog.body }}</p>
       </div>
     </div>
     <div v-else>
@@ -26,7 +26,7 @@ export default {
 
   mounted() {
     console.log('query', this.$route)
-    this.singleBlog = this.$route.query.details
+    this.singleBlog = JSON.parse(this.$route.query.details)
     // axios.get(`https://jsonplaceholder.typicode.com/posts/${this.$route.params.id}`)
     //   .then(response => {
     //     this.singleBlog = response.data
@@ -34,3 +34,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.single-blog {
+  padding: 10px;
+}
+</style>

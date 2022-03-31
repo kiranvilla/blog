@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <h2>{{ $t('message.allBlogs') }}</h2>
+    <h2>{{ $t('message.blogsApp') }}</h2>
     <div class="lang">
       <span @click="$i18n.locale = 'en'" :style="{color: $i18n.locale==='en' ? 'cyan' : 'yellow'}">EN</span> |
       <span @click="$i18n.locale = 'ru'" :style="{color: $i18n.locale==='ru' ? 'cyan' : 'yellow'}">RU</span> |
